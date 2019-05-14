@@ -43,16 +43,17 @@
             android:layout_width="25dp"
             android:gravity="left"
             android:src="@drawable/face"
-            android:layout_marginRight="5dp"/>
+            android:layout_marginRight="10dp"/>
 
         <TextView
             android:id="@+id/repo_author"
-            android:layout_width="216dp"
+            android:layout_width="match_parent"
             android:layout_height="25dp"
             android:gravity="left"
             android:text="User1"
             android:textColor="#000"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:layout_weight="1.0"/>
 
         <ImageView
             android:id="@+id/starpic"
@@ -67,7 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:gravity="right"
-            android:text="5.0k"
+            android:text="5.1k"
             android:textColor="#000"
             android:textSize="20sp" />
 
