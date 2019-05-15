@@ -34,7 +34,9 @@
         android:id="@+id/lv_repo"
         android:layout_width="384dp"
         android:layout_height="456dp"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="-2dp" />
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+        <!--android:divider="@color/colorWhite"-->
+        <!--android:dividerHeight="10dp"-->
 
 </android.support.constraint.ConstraintLayout>
