@@ -22,13 +22,13 @@ public class CustomListAdapter extends ArrayAdapter {
     private final String[] descArray;
 
     //to store the ratings
-    private final Integer[] ratingArray;
+    private final String[] ratingArray;
 
-    public CustomListAdapter(Activity context, String[] usernameArrayParam, String[] tilteArrayParam, String[] descArrayParam, Integer[] ratingArrayParam){
+    public CustomListAdapter(Activity cxt, String[] usernameArrayParam, String[] tilteArrayParam, String[] descArrayParam, String[] ratingArrayParam){
 
-        super(context,R.layout.repoitem , usernameArrayParam);
+        super(cxt,R.layout.repoitem , usernameArrayParam);
 
-        this.context = context;
+        this.context = cxt;
         this.usernameArray = usernameArrayParam;
         this.titleArray = tilteArrayParam;
         this.descArray = descArrayParam;
@@ -54,5 +54,5 @@ public class CustomListAdapter extends ArrayAdapter {
 
         return rowView;
 
-    };
+    }
 }
