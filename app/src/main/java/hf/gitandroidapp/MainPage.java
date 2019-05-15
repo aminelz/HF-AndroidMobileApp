@@ -12,10 +12,10 @@ import android.widget.TextView;
 public class MainPage extends AppCompatActivity {
 
     private TextView mTextMessage;
-    String[] usernametest = {"User1","User2", "User3", "User4", "User5" };
-    String[] titlestest = {"Sentiment Analyzer","Apriori Algorithm", "Linear Regression", "Java Address Book", "FlynBetween 2D Game" };
-    String[] desctest = {"This a program that runs through tweets and gives their sentiment" , "dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy ", "dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy ", "dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy ", "dummy dummy dummy dummy dummy dummy dummy dummy dummy dummy "};
-    String[] ratingtest = {"5.9k", "4.3k", "5.0k", "5.7k", "3.5k"};
+//    String[] usernames={"test1", "test1", "test1", "test1", "test1", };
+//    String[] titles={"test1", "test1", "test1", "test1", "test1", };
+//    String[] desc={"test1", "test1", "test1", "test1", "test1", };
+//    String[] ratings={"test1", "test1", "test1", "test1", "test1", };
     ListView listView;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -46,7 +46,10 @@ public class MainPage extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        CustomListAdapter cstmList = new CustomListAdapter(this, usernametest, titlestest, desctest, ratingtest);
+        fetchData fetch = new fetchData();
+        fetch.execute();
+
+        CustomListAdapter cstmList = new CustomListAdapter(this, fetch.usernames, fetch.titles, fetch.desc, fetch.ratings, fetch.avatars);
         listView = (ListView) findViewById(R.id.lv_repo);
         listView.setAdapter(cstmList);
     }

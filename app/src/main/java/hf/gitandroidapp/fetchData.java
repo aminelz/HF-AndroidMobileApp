@@ -14,23 +14,26 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 
-public class fetchData extends AsyncTask<Void, Void, Void> {
+public class fetchData extends AsyncTask<Void, Void, String> {
 
     String resultJson ="";
-    String[] usernametest;
-    String[] titlestest;
-    String[] desctest;
-    String[] ratingtest;
-    String[] avatartest;
+    ArrayList<String> usernames = new ArrayList<String>();
+    ArrayList<String> titles = new ArrayList<String>();
+    ArrayList<String> desc = new ArrayList<String>();
+    ArrayList<String> ratings = new ArrayList<String>();
+    ArrayList<String> avatars = new ArrayList<String>();
 
     @Override
-    protected Void doInBackground(Void... voids) {
+    protected String doInBackground(Void... voids) {
 
         try {
-            URL url = new URL("https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc");
+            URL url = new URL("https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc&page=2");
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+            httpURLConnection.setRequestMethod("GET");
+            httpURLConnection.connect();
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
 
@@ -44,30 +47,43 @@ public class fetchData extends AsyncTask<Void, Void, Void> {
             resultJson = buffer.toString();
             Log.d("For_LOG",resultJson);
 
-            JSONObject jsonObject = new JSONObject(resultJson);
-            JSONArray jsonArray = jsonObject.getJSONArray("items");
-            
-            for(int i=0 ; i <= 10 ; i++){
-                JSONObject repoitem = jsonArray.getJSONObject(i);
-                titlestest[i] = (String) repoitem.get("name");
-                ratingtest[i] = (String) repoitem.get("score");
-                desctest[i] = (String) repoitem.get("description");
-
-                JSONObject obj2 = repoitem.getJSONObject("owner");
-                usernametest[i] = (String) obj2.get("login");
-                avatartest[i] = (String) obj2.get("avatar-url");
-            }
-
 
         } catch (MalformedURLException e){
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        return resultJson;
+    }
+
+    @Override
+    protected void onPostExecute(String resultJson) {
+        super.onPostExecute(resultJson);
+
+        try {
+            JSONObject jsonObject = new JSONObject(resultJson);
+            JSONArray jsonArray = jsonObject.getJSONArray("items");
+            Log.d("For_LOG", jsonArray.toString());
+
+            for(int i=0 ; i < jsonArray.length() ; i++){
+                JSONObject obj1 = jsonArray.getJSONObject(i);
+                titles.add(obj1.getString("name"));
+                ratings.add(obj1.getString("score"));
+                desc.add(obj1.getString("description"));
+
+                JSONObject obj2 = obj1.getJSONObject("owner");
+                usernames.add(obj2.getString("login"));
+                avatars.add(obj2.getString("avatar_url"));
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return null;
+
+
+
+
     }
 
 }
