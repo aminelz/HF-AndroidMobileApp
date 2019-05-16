@@ -20,7 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class fetchData extends AsyncTask<Void, Void, String> {
+public class FetchedData extends AsyncTask<Void, Void, String> {
 
     String resultJson ="";
     ArrayList<String> usernames = new ArrayList<String>();
@@ -28,6 +28,7 @@ public class fetchData extends AsyncTask<Void, Void, String> {
     ArrayList<String> desc = new ArrayList<String>();
     ArrayList<Integer> ratings = new ArrayList<Integer>();
     ArrayList<String> avatars = new ArrayList<String>();
+    int pagenumber = 1;
 
     @Override
     protected String doInBackground(Void... voids) {
@@ -40,7 +41,7 @@ public class fetchData extends AsyncTask<Void, Void, String> {
             String today = dateFormat.format(date); //putting the date into the wanted format
             Log.d("30 days before today = ", today); //printing the date for debugging purposes
 
-            URL url = new URL("https://api.github.com/search/repositories?q=created:>"+today+"&sort=stars&order=desc&page=1"); //creating the url from which data will be fetched
+            URL url = new URL("https://api.github.com/search/repositories?q=created:>"+today+"&sort=stars&order=desc&page="+ pagenumber); //creating the url from which data will be fetched
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //opening http connection
             httpURLConnection.setRequestMethod("GET"); //specifying that we will be reading/getting data
             httpURLConnection.connect(); //setting up the connexion

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Trending Repos</string>
-    <string name="title_home">Trending</string>
+    <string name="home_message">Welcome on my Application !\n To be able to look at the list of the most starred Github repos that were created in the last 30 days, click on the button bellow</string>
     <string name="title_setting">Settings</string>
 </resources>
