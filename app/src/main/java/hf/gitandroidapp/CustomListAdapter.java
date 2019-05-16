@@ -31,6 +31,7 @@ public class CustomListAdapter extends ArrayAdapter {
     //to store the avatar url
     private final ArrayList<String> avatarArray;
 
+    //custom list adapter constructor that will be used to populate our list view of repoitems
     public CustomListAdapter(Activity cxt, ArrayList<String> usernameArrayParam, ArrayList<String> tilteArrayParam, ArrayList<String> descArrayParam, ArrayList<String> ratingArrayParam, ArrayList<String> avatarArrayParam){
 
         super(cxt,R.layout.repoitem , usernameArrayParam);
@@ -63,7 +64,6 @@ public class CustomListAdapter extends ArrayAdapter {
             ratingTextField.setText(ratingArray.get(position)+"k");
             Picasso.get().load(avatarArray.get(position)).into(avatarImageView);
         }
-
         return rowView;
 
     }
