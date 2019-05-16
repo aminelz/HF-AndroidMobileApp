@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Array;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class CustomListAdapter extends ArrayAdapter {
@@ -26,13 +28,13 @@ public class CustomListAdapter extends ArrayAdapter {
     private final ArrayList<String>  descArray;
 
     //to store the ratings
-    private final ArrayList<String>  ratingArray;
+    private final ArrayList<Integer>  ratingArray;
 
     //to store the avatar url
     private final ArrayList<String> avatarArray;
 
     //custom list adapter constructor that will be used to populate our list view of repoitems
-    public CustomListAdapter(Activity cxt, ArrayList<String> usernameArrayParam, ArrayList<String> tilteArrayParam, ArrayList<String> descArrayParam, ArrayList<String> ratingArrayParam, ArrayList<String> avatarArrayParam){
+    public CustomListAdapter(Activity cxt, ArrayList<String> usernameArrayParam, ArrayList<String> tilteArrayParam, ArrayList<String> descArrayParam, ArrayList<Integer> ratingArrayParam, ArrayList<String> avatarArrayParam){
 
         super(cxt,R.layout.repoitem , usernameArrayParam);
 
@@ -61,7 +63,13 @@ public class CustomListAdapter extends ArrayAdapter {
             usernameTextField.setText(usernameArray.get(position));
             tilteTextField.setText(titleArray.get(position));
             descTextField.setText(descArray.get(position));
-            ratingTextField.setText(ratingArray.get(position)+"k");
+            double rating = ratingArray.get(position);
+            String srating;
+            DecimalFormat f = new DecimalFormat("#.#");
+            f.setRoundingMode(RoundingMode.DOWN);
+            if (rating >= 999){ srating = f.format(rating/1000) + "k";}
+            else{ srating = String.valueOf((int)rating);}
+            ratingTextField.setText(srating);
             Picasso.get().load(avatarArray.get(position)).into(avatarImageView);
         }
         return rowView;

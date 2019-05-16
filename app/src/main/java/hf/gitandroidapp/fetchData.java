@@ -26,7 +26,7 @@ public class fetchData extends AsyncTask<Void, Void, String> {
     ArrayList<String> usernames = new ArrayList<String>();
     ArrayList<String> titles = new ArrayList<String>();
     ArrayList<String> desc = new ArrayList<String>();
-    ArrayList<String> ratings = new ArrayList<String>();
+    ArrayList<Integer> ratings = new ArrayList<Integer>();
     ArrayList<String> avatars = new ArrayList<String>();
 
     @Override
@@ -40,7 +40,7 @@ public class fetchData extends AsyncTask<Void, Void, String> {
             String today = dateFormat.format(date); //putting the date into the wanted format
             Log.d("30 days before today = ", today); //printing the date for debugging purposes
 
-            URL url = new URL("https://api.github.com/search/repositories?q=created:>"+today+"&sort=stars&order=desc"); //creating the url from which data will be fetched
+            URL url = new URL("https://api.github.com/search/repositories?q=created:>"+today+"&sort=stars&order=desc&page=1"); //creating the url from which data will be fetched
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection(); //opening http connection
             httpURLConnection.setRequestMethod("GET"); //specifying that we will be reading/getting data
             httpURLConnection.connect(); //setting up the connexion
@@ -78,7 +78,7 @@ public class fetchData extends AsyncTask<Void, Void, String> {
             for(int i=0 ; i < jsonArray.length() ; i++){ //going through each item in the jsonArray = going through all items present in the Json file we read
                 JSONObject obj1 = jsonArray.getJSONObject(i); //creating an object instance for each item within the array
                 titles.add(obj1.getString("name")); //populating the arrays that will contain the data needed for our listview by using the tags needed
-                ratings.add(obj1.getString("score"));
+                ratings.add(obj1.getInt("stargazers_count"));
                 desc.add(obj1.getString("description"));
                 JSONObject obj2 = obj1.getJSONObject("owner"); //Creating a second object instance out of the first one because we have tags that are parsed within another tag
                 usernames.add(obj2.getString("login"));
