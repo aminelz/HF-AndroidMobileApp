@@ -1,3 +1,5 @@
+//Author: AmineLz
+
 package hf.gitandroidapp;
 
 import android.os.Bundle;
@@ -27,18 +29,18 @@ public class MainPage extends AppCompatActivity {
             Button btn = (Button)findViewById(R.id.Button1);
             switch (item.getItemId()) {
                 case R.id.navigation_home: //case where we click on the Trending navigation item
-                    if(count!=0){
+                    if(count!=0){ //if we already clicked on the list repos button --> Hide Button and Messafe and Show list of repos
                         mTextMessage.setVisibility(View.GONE);
                         btn.setVisibility(View.GONE);
                         listView.setVisibility(View.VISIBLE);}
-                    else if(count==0){
+                    else if(count==0){ //if we still didnt click on the list repos button --> Show message and button
                         mTextMessage.setText(R.string.home_message);
                         mTextMessage.setVisibility(View.VISIBLE);
                         btn.setVisibility(View.VISIBLE);
                     }
                     return true;
-                case R.id.navigation_setting: //case where we click on the Settings navigation item
-                    listView.setVisibility(View.GONE);
+                case R.id.navigation_setting: //case where we click on the Settings navigation item --> Hide button and welcoming message
+                    listView.setVisibility(View.GONE); //settings features to be added
                     mTextMessage.setVisibility(View.GONE);
                     btn.setVisibility(View.GONE);
                     return true;
@@ -66,7 +68,7 @@ public class MainPage extends AppCompatActivity {
 
     }
 
-    public void listRepos(View view){
+    public void listRepos(View view){ //Function called when user click on the list button --> hides button and message from view and displays the list of repos
         count +=1;
 
         Button btn = (Button)findViewById(R.id.Button1);
